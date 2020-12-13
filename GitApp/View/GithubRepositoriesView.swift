@@ -9,15 +9,17 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class GithubRepositoriesTableView: UIViewController, UISearchBarDelegate {
+class GithubRepositoriesView: UIViewController, UISearchBarDelegate {
     let searchController = UISearchController(searchResultsController: nil)
     let disposeBag = DisposeBag()
     let viewModel: GithubRepositoriesViewModel = GithubRepositoriesViewModel()
 
     let tableView = UITableView()
+    private var coordinator: GitRepositoreisCoordinator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        coordinator = GitRepositoreisCoordinator(navigationController: self.navigationController!)
         view.backgroundColor = .white
         navigationItem.title = "Search"
         searchController.obscuresBackgroundDuringPresentation = false;
@@ -59,6 +61,12 @@ class GithubRepositoriesTableView: UIViewController, UISearchBarDelegate {
         viewModel.repositories.asObservable().bind(to: tableView.rx.items(cellIdentifier: "cellId", cellType: GitRepositoryCell.self)) { index, model, cell in
             cell.setupCell(model: model)
         }.disposed(by: disposeBag)
+        
+        tableView.rx.modelSelected(Repository.self)
+            .subscribe(onNext: { repository in
+                self.coordinator?.showDetails()
+            })
+            .disposed(by: disposeBag)
     }
     
 }

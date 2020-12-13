@@ -86,5 +86,6 @@ class GitRepositoryCell: UITableViewCell {
         stac.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         stac.heightAnchor.constraint(equalToConstant: 40).isActive = true
         stac.leftAnchor.constraint(equalTo: ownerImage.rightAnchor, constant: 8).isActive = true
+        stac.rightAnchor.constraint(equalTo: rightAnchor, constant: -32).isActive = true
     }
 }
