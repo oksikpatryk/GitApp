@@ -3,29 +3,27 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		4DE405B7075D88FC5180CC1F /* Pods_GitApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF4ED3975E4B4283A0540225 /* Pods_GitApp.framework */; };
 		842B919D25854D4B00D15DB0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842B919C25854D4B00D15DB0 /* AppDelegate.swift */; };
-		842B919F25854D4B00D15DB0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842B919E25854D4B00D15DB0 /* SceneDelegate.swift */; };
-		842B91A125854D4B00D15DB0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842B91A025854D4B00D15DB0 /* ViewController.swift */; };
-		842B91A425854D4B00D15DB0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 842B91A225854D4B00D15DB0 /* Main.storyboard */; };
 		842B91A625854D4E00D15DB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 842B91A525854D4E00D15DB0 /* Assets.xcassets */; };
 		842B91A925854D4E00D15DB0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 842B91A725854D4E00D15DB0 /* LaunchScreen.storyboard */; };
+		84D500632585515600036AE8 /* GithubRepositoriesTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D500622585515600036AE8 /* GithubRepositoriesTableView.swift */; };
+		84D50067258562DF00036AE8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D50066258562DF00036AE8 /* SceneDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3EC8E66562715897CF9787FA /* Pods-GitApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitApp.release.xcconfig"; path = "Target Support Files/Pods-GitApp/Pods-GitApp.release.xcconfig"; sourceTree = "<group>"; };
 		842B919925854D4B00D15DB0 /* GitApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		842B919C25854D4B00D15DB0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		842B919E25854D4B00D15DB0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		842B91A025854D4B00D15DB0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		842B91A325854D4B00D15DB0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		842B91A525854D4E00D15DB0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		842B91A825854D4E00D15DB0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		842B91AA25854D4E00D15DB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84D500622585515600036AE8 /* GithubRepositoriesTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubRepositoriesTableView.swift; sourceTree = "<group>"; };
+		84D50066258562DF00036AE8 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A92504D3E3764D3860A03308 /* Pods-GitApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitApp.debug.xcconfig"; path = "Target Support Files/Pods-GitApp/Pods-GitApp.debug.xcconfig"; sourceTree = "<group>"; };
 		BF4ED3975E4B4283A0540225 /* Pods_GitApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -56,7 +54,6 @@
 				A92504D3E3764D3860A03308 /* Pods-GitApp.debug.xcconfig */,
 				3EC8E66562715897CF9787FA /* Pods-GitApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -81,15 +78,22 @@
 		842B919B25854D4B00D15DB0 /* GitApp */ = {
 			isa = PBXGroup;
 			children = (
+				84D5006A2586315300036AE8 /* View */,
 				842B919C25854D4B00D15DB0 /* AppDelegate.swift */,
-				842B919E25854D4B00D15DB0 /* SceneDelegate.swift */,
-				842B91A025854D4B00D15DB0 /* ViewController.swift */,
-				842B91A225854D4B00D15DB0 /* Main.storyboard */,
+				84D50066258562DF00036AE8 /* SceneDelegate.swift */,
 				842B91A525854D4E00D15DB0 /* Assets.xcassets */,
 				842B91A725854D4E00D15DB0 /* LaunchScreen.storyboard */,
 				842B91AA25854D4E00D15DB0 /* Info.plist */,
 			);
 			path = GitApp;
+			sourceTree = "<group>";
+		};
+		84D5006A2586315300036AE8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				84D500622585515600036AE8 /* GithubRepositoriesTableView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,7 +157,6 @@
 			files = (
 				842B91A925854D4E00D15DB0 /* LaunchScreen.storyboard in Resources */,
 				842B91A625854D4E00D15DB0 /* Assets.xcassets in Resources */,
-				842B91A425854D4B00D15DB0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,23 +209,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				842B91A125854D4B00D15DB0 /* ViewController.swift in Sources */,
 				842B919D25854D4B00D15DB0 /* AppDelegate.swift in Sources */,
-				842B919F25854D4B00D15DB0 /* SceneDelegate.swift in Sources */,
+				84D500632585515600036AE8 /* GithubRepositoriesTableView.swift in Sources */,
+				84D50067258562DF00036AE8 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		842B91A225854D4B00D15DB0 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				842B91A325854D4B00D15DB0 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		842B91A725854D4E00D15DB0 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
