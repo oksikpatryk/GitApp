@@ -64,7 +64,7 @@ class GithubRepositoriesView: UIViewController, UISearchBarDelegate {
         
         tableView.rx.modelSelected(Repository.self)
             .subscribe(onNext: { repository in
-                self.coordinator?.showDetails()
+                self.coordinator?.showDetails(repository: repository)
             })
             .disposed(by: disposeBag)
     }

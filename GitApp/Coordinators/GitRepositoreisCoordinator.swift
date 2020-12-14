@@ -28,8 +28,9 @@ class GitRepositoreisCoordinator: Coordinator {
     }
     
     
-    func showDetails() {
+    func showDetails(repository: Repository) {
         let vc = GitRepositoryDetailsView()
+        vc.repository = repository
         navigationController.pushViewController(vc, animated: true)
     }
 }
