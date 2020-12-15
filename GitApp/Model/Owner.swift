@@ -9,5 +9,6 @@ import Foundation
 
 class Owner: Decodable {
     var avatar_url: URL
+    var login: String
     
 }

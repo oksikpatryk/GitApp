@@ -13,6 +13,7 @@ class GitRepositoryDetailsView: UIViewController {
     var repository: Repository?
     let viewModel: GitRepositoryDetalisViewModel = GitRepositoryDetalisViewModel()
     let disposeBag = DisposeBag()
+    private var coordinator: GitRepositoreisCoordinator?
 
     let tableView = UITableView()
     let ownerImage: UIImageView = {
@@ -85,7 +86,16 @@ class GitRepositoryDetailsView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        coordinator = GitRepositoreisCoordinator(navigationController: self.navigationController!)
         guard repository != nil else { return }
+        labelRepoTitle.text = repository?.name
+        labelOwnerName.text = repository?.owner.login
+        labelNumberOfStars.text = "Number of stars (\(repository!.stargazers_count))"
+        tableView.register(CommitCell.self, forCellReuseIdentifier: "cellId")
+        
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
+
         view.backgroundColor = .white
         
         let stack = UIStackView(arrangedSubviews: [labelRepoBy, labelOwnerName, labelNumberOfStars])
@@ -97,6 +107,7 @@ class GitRepositoryDetailsView: UIViewController {
         view.addSubview(buttonViewOnline)
         view.addSubview(tableView)
         view.addSubview(buttonShareRepo)
+        view.addSubview(tableView)
         ownerImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             ownerImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 0.0),
@@ -109,13 +120,20 @@ class GitRepositoryDetailsView: UIViewController {
         NSLayoutConstraint.activate([
             stack.bottomAnchor.constraint(equalTo: ownerImage.bottomAnchor, constant: -22.0),
             stack.leftAnchor.constraint(equalTo: ownerImage.leftAnchor, constant: 16.0),
-            stack.rightAnchor.constraint(equalTo: ownerImage.rightAnchor, constant: 16.0)
+            stack.rightAnchor.constraint(equalTo: ownerImage.rightAnchor, constant: -16.0)
         ])
         labelRepoTitle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             labelRepoTitle.topAnchor.constraint(equalTo: ownerImage.bottomAnchor, constant: 21.0),
             labelRepoTitle.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20.0),
             labelRepoTitle.rightAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: labelRepoTitle.bottomAnchor, constant: 10),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tableView.bottomAnchor.constraint(equalTo: buttonShareRepo.topAnchor)
         ])
         buttonViewOnline.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -129,17 +147,28 @@ class GitRepositoryDetailsView: UIViewController {
             buttonShareRepo.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16.0)
         ])
         
+        
         viewModel.downloadImage(url: repository!.owner.avatar_url)
         viewModel.image.asObservable().bind(to: ownerImage.rx.image).disposed(by: self.disposeBag)
+        viewModel.getCommitsFor(repoName: repository!.name, ownerName: repository!.owner.login)
+        viewModel.commtis.asObservable().bind(to: tableView.rx.items(cellIdentifier: "cellId", cellType: CommitCell.self)) { index, model, cell in
+            cell.setupCell(model: model, position: index)
+        }.disposed(by: disposeBag)
     }
     
     @objc
      func buttonViewOnlinePressed() {
-         print("Button pressed")
+        guard repository != nil else { return }
+        coordinator?.openBrowser(url: repository!.html_url)
      }
     
     @objc
      func buttonShareRepoPressed() {
-         print("Button pressed")
+        guard repository != nil else { return }
+        let text = "\(repository!.name) \(repository!.html_url)"
+        let textShare = [ text ]
+        let activityViewController = UIActivityViewController(activityItems: textShare , applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        self.present(activityViewController, animated: true, completion: nil)
      }
 }

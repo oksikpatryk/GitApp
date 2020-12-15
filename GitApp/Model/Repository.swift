@@ -11,4 +11,5 @@ struct Repository: Decodable {
     var name: String
     var stargazers_count: Int
     var owner: Owner
+    var html_url: URL
 }

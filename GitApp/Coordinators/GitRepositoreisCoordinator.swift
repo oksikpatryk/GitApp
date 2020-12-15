@@ -33,4 +33,8 @@ class GitRepositoreisCoordinator: Coordinator {
         vc.repository = repository
         navigationController.pushViewController(vc, animated: true)
     }
+    
+    func openBrowser(url: URL) {
+        UIApplication.shared.open(url)
+    }
 }
