@@ -27,9 +27,11 @@ class CommitCell: UITableViewCell {
         label.text = "1"
         label.backgroundColor = .systemGray5
         label.font = UIFont.systemFont(ofSize: 17)
+        label.frame = CGRect(x: 0,y: 0,width: 36,height: 36)
+        label.layer.masksToBounds = true
+        label.layer.cornerRadius = 18
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.layer.cornerRadius = 5
-        label.clipsToBounds = true
+        label.textAlignment = .center
 
         return label
     }()
@@ -71,6 +73,7 @@ class CommitCell: UITableViewCell {
         labelPosition.text = String(position + 1)
         labelCommitAuthorEmail.text = model.commit.author.email
         labelCommitMessage.text = model.commit.message
+        labelCommitAuthorName.text = model.commit.author.name
     }
     
     func setupViews() {
@@ -84,8 +87,8 @@ class CommitCell: UITableViewCell {
         NSLayoutConstraint.activate([
             labelPosition.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             labelPosition.leftAnchor.constraint(equalTo: leftAnchor, constant: 20),
-            labelPosition.trailingAnchor.constraint(equalTo: leadingAnchor, constant: 36),
-            labelPosition.bottomAnchor.constraint(greaterThanOrEqualTo: bottomAnchor, constant: -26),
+            labelPosition.heightAnchor.constraint(equalToConstant: 36),
+            labelPosition.widthAnchor.constraint(equalToConstant: 36),
             
             stac.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             stac.leftAnchor.constraint(equalTo: labelPosition.rightAnchor, constant: 20),
