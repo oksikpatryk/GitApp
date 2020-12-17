@@ -52,9 +52,15 @@ class GitRepositoryDetailsView: UIViewController {
     
     let labelRepoTitle: UILabel = {
         let label = UILabel()
-        label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.text = "Repo Title"
+        return label
+    }()
+    
+    let labelCommitsHistory: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 22)
+        label.text = "Commits History"
         return label
     }()
     
@@ -104,6 +110,7 @@ class GitRepositoryDetailsView: UIViewController {
         view.addSubview(stack)
         view.addSubview(ownerImage)
         view.addSubview(labelRepoTitle)
+        view.addSubview(labelCommitsHistory)
         view.addSubview(buttonViewOnline)
         view.addSubview(tableView)
         view.addSubview(buttonShareRepo)
@@ -128,12 +135,17 @@ class GitRepositoryDetailsView: UIViewController {
             labelRepoTitle.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20.0),
             labelRepoTitle.rightAnchor.constraint(equalTo: view.centerXAnchor)
         ])
+        labelCommitsHistory.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            labelCommitsHistory.topAnchor.constraint(equalTo: labelRepoTitle.bottomAnchor, constant: 39.0),
+            labelCommitsHistory.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16.0)
+        ])
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: labelRepoTitle.bottomAnchor, constant: 10),
+            tableView.topAnchor.constraint(equalTo: labelCommitsHistory.bottomAnchor, constant: 10),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            tableView.bottomAnchor.constraint(equalTo: buttonShareRepo.topAnchor)
+            tableView.bottomAnchor.constraint(equalTo: buttonShareRepo.topAnchor, constant: -10)
         ])
         buttonViewOnline.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
