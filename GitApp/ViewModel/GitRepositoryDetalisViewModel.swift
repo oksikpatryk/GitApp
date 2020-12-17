@@ -34,7 +34,8 @@ class GitRepositoryDetalisViewModel {
         client.getCommitsFor(repoName: repoName, ownerName: ownerName)
             .subscribe(
                 onNext: { [weak self] commits in
-                    self?.commtis.accept(commits)
+                    let last3commits = Array(commits.prefix(3))
+                    self?.commtis.accept(last3commits)
                 },
                 onError: { error in
                     print(error)
