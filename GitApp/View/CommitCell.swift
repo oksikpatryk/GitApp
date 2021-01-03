@@ -85,7 +85,7 @@ class CommitCell: UITableViewCell {
         stac.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            labelPosition.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            labelPosition.topAnchor.constraint(equalTo: topAnchor, constant: 26),
             labelPosition.leftAnchor.constraint(equalTo: leftAnchor, constant: 20),
             labelPosition.heightAnchor.constraint(equalToConstant: 36),
             labelPosition.widthAnchor.constraint(equalToConstant: 36),
