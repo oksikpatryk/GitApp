@@ -12,23 +12,23 @@ class GithubServicesClient {
     
     func search(query: String) -> Observable<[Repository]> {
         return Observable.create { observer -> Disposable in
-            let url = URL(string: "https://api.github.com/search/repositories?q=\(query)")
-            
-            let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
-                guard let data = data else { return }
+            if let url = URL(string: "https://api.github.com/search/repositories?q=\(query)") {
                 
-                DispatchQueue.main.async {
-                    do {
-                        let decoder = JSONDecoder()
-                        let response = try decoder.decode(SearchRepositoryResponse.self, from: data)
-                        observer.onNext(response.items)
-                    } catch let err {
-                         observer.onError(err)
+                let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                    guard let data = data else { return }
+                    
+                    DispatchQueue.main.async {
+                        do {
+                            let decoder = JSONDecoder()
+                            let response = try decoder.decode(SearchRepositoryResponse.self, from: data)
+                            observer.onNext(response.items)
+                        } catch let err {
+                            observer.onError(err)
+                        }
                     }
                 }
+                task.resume();
             }
-            task.resume();
-        
             return Disposables.create()
         }
     }
