@@ -45,7 +45,7 @@ class GithubRepositoriesView: UIViewController, UISearchBarDelegate {
        
         searchController.searchBar.rx.text
             .orEmpty
-            .throttle(.seconds(1), scheduler: MainScheduler.instance)
+            .throttle(.seconds(2), scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .subscribe(onNext: { query in
                   self.viewModel.search(query: query)
