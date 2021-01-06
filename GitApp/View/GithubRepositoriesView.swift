@@ -65,6 +65,10 @@ class GithubRepositoriesView: UIViewController, UISearchBarDelegate {
         tableView.rx.modelSelected(Repository.self)
             .subscribe(onNext: { repository in
                 self.coordinator?.showDetails(repository: repository)
+                
+                if let selectedRowIndexPath = self.tableView.indexPathForSelectedRow {
+                    self.tableView.deselectRow(at: selectedRowIndexPath, animated: true)
+                }
             })
             .disposed(by: disposeBag)
     }
