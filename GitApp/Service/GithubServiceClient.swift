@@ -8,11 +8,13 @@
 import Foundation
 import RxSwift
 
-class GithubServicesClient {
+class GithubServiceClient {
     
-    func search(query: String) -> Observable<[Repository]> {
+    private let GITHUB_BASE_URL = "https://api.github.com/"
+    
+    func searchRepository(by name: String, page: Int = 1) -> Observable<[Repository]> {
         return Observable.create { observer -> Disposable in
-            if let url = URL(string: "https://api.github.com/search/repositories?q=\(query)") {
+            if let url = URL(string: self.GITHUB_BASE_URL + "search/repositories?q=\(name)&per_page=20&page=\(page)") {
                 
                 let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
                     guard let data = data else { return }
@@ -35,7 +37,7 @@ class GithubServicesClient {
     
     func getCommitsFor(repoName: String, ownerName: String) -> Observable<[CommitResponse]> {
         return Observable.create { observer -> Disposable in
-            let url = URL(string: "https://api.github.com/repos/\(ownerName)/\(repoName)/commits")
+            let url = URL(string:  self.GITHUB_BASE_URL + "repos/\(ownerName)/\(repoName)/commits")
             
             let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
                 guard let data = data else { return }

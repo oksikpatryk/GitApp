@@ -13,12 +13,14 @@ class GithubRepositoriesView: UIViewController, UISearchBarDelegate {
     let searchController = UISearchController(searchResultsController: nil)
     let disposeBag = DisposeBag()
     let viewModel: GithubRepositoriesViewModel = GithubRepositoriesViewModel()
-
+    
     let tableView = UITableView()
     private var coordinator: GitRepositoreisCoordinator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        overrideUserInterfaceStyle = .light
+
         coordinator = GitRepositoreisCoordinator(navigationController: self.navigationController!)
         view.backgroundColor = .white
         navigationItem.title = "Search"
@@ -42,13 +44,13 @@ class GithubRepositoriesView: UIViewController, UISearchBarDelegate {
     }
     
     private func setupBinding() {
-       
+        
         searchController.searchBar.rx.text
             .orEmpty
             .throttle(.seconds(2), scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .subscribe(onNext: { query in
-                  self.viewModel.search(query: query)
+                self.viewModel.search(repoName: query, nextPage: false)
             }, onError: { error in
                 print(error)
             }, onCompleted: {
@@ -68,6 +70,18 @@ class GithubRepositoriesView: UIViewController, UISearchBarDelegate {
                 
                 if let selectedRowIndexPath = self.tableView.indexPathForSelectedRow {
                     self.tableView.deselectRow(at: selectedRowIndexPath, animated: true)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        tableView
+            .rx
+            .willDisplayCell
+            .subscribe(onNext: {
+                cell, indexPath in
+                let lastItem = self.viewModel.repositories.value.count - 1
+                if indexPath.row == lastItem {
+                    self.viewModel.search(repoName: self.searchController.searchBar.text ?? "", nextPage: true)
                 }
             })
             .disposed(by: disposeBag)

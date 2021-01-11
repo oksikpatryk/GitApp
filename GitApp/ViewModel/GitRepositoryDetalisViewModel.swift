@@ -11,7 +11,7 @@ import RxCocoa
 
 class GitRepositoryDetalisViewModel {
     let image : BehaviorRelay<UIImage?> = BehaviorRelay(value: nil)
-    let client = GithubServicesClient()
+    let client = GithubServiceClient()
     let commtis : BehaviorRelay<[CommitResponse]> = BehaviorRelay(value: [])
     let disposeBag = DisposeBag()
     
