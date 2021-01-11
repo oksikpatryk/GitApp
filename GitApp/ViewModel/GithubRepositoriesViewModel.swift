@@ -18,7 +18,6 @@ class GithubRepositoriesViewModel {
 
     func search(repoName: String, nextPage: Bool = false) {
         PAGE_NUMBER = nextPage ? PAGE_NUMBER + 1 : 1
-        print("dupa: \(PAGE_NUMBER)")
         guard !repoName.isEmpty else {
             repositories.accept([]);
             return
